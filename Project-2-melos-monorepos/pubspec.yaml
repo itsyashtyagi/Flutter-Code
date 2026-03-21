@@ -1,0 +1,21 @@
+name: melos_monorepos
+publish_to: none
+environment:
+  sdk: ^3.10.4
+workspace:
+  - packages/demo_package
+  - packages/demo_package_one
+  - apps/demo_app
+
+dev_dependencies:
+  melos: ^7.4.1
+
+melos:
+  scripts:
+    build:
+      # Scripts that run across all packages
+      run: dart run build_runner build --delete-conflicting-outputs
+      exec:
+        concurrency: 4
+      packageFilters:
+        dependsOn: build_runner
